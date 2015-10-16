@@ -5,7 +5,7 @@ use App\Member;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use DB;
 
 
 
@@ -16,13 +16,22 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
+    {
+       // $members = Member::all();  
+        $a = $request->user()->id;
+        $members = DB::table('members')->where('uid', '=', $a)->get();
+
+          //$members = Member::all();
+          return view('members.index')->with('members',$members);
+    }
+    public function test()
     {
         //  
 
-          $members = Member::all();
+         $user = $request->user();
         // show the homepage and pass the member info to it
-          return view('members.index')->with('members',$members);
+          return $user;
     }
 
     /**
@@ -43,17 +52,20 @@ class MemberController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {      
             $Member = new Member;           
             $Member->name  = $request->get('name');
             $Member->email = $request->get('email');
             $Member->phone = $request->get('phone');
             $Member->country = $request->get('country');
+            $Member->uid = $request->user()->id;
             $Member->save();
  
- 
+          
+
+
         $members = Member::all();
-        $request->session()->flash('flash_message', 'New member added successfully!'); 
+        $request->session()->flash('flash_message', "Member added succesfully"); 
             return redirect()->back();
          }
 
@@ -92,7 +104,7 @@ class MemberController extends Controller
 
      public function viewEdit()
     {
-      
+       
         $members = Member::all();
         return view('edit')->with('members',$members); 
     }

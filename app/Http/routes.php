@@ -16,12 +16,13 @@
  
  Route::get('more/{id}','MemberController@show');
  Route::get('new','MemberController@create');
+ Route::get('test','MemberController@test');
  Route::post('data','MemberController@store');
  Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
  
  Route::controllers([
-  'auth' => 'Auth\AuthController',
+  
   'password' => 'Auth\PasswordController',
 ]);
  

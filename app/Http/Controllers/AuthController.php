@@ -20,7 +20,7 @@ class AuthController extends Controller
     |
     */
 	
-use AuthenticatesAndRegistersUsers; 
+	use AuthenticatesAndRegistersUsers; 
 
  protected $redirectAfterLogout = '/auth/login';
  protected $redirectTo = '/';
