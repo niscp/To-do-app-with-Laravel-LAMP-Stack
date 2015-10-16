@@ -20,8 +20,10 @@ class MemberController extends Controller
     {
        // $members = Member::all();  
         $a = $request->user()->id;
-        $members = DB::table('members')->where('uid', '=', $a)->get();
 
+            $members = DB::table('members')->where('uid', '=', $a)->get();
+   
+        
           //$members = Member::all();
           return view('members.index')->with('members',$members);
     }
